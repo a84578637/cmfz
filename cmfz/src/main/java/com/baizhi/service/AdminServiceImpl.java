@@ -39,13 +39,18 @@ public class AdminServiceImpl implements AdminService {
      */
     @Override
     public Msg CheckLogin(Admin admin) {
-        Example example = new Example(Admin.class);
+
+
+
+
+        Example example = new Example(Admin.class,true,true);
         Example.Criteria criteria = example.createCriteria();
-        criteria.andEqualTo("username", admin.getUsername());
-        List<Admin> admins = adminMapper.selectByExample(criteria);
-        Msg msg = new Msg();
+        logger.info("AdminServiceImpl中 CheckLogin方法准备查询用户");
+        criteria.andEqualTo("Username", admin.getUsername());
+        List<Admin> admins = adminMapper.selectByExample(example);
+            Msg msg = new Msg();
         //根据用户名判断是否有此用户
-        if(admins==null){
+        if(admins.isEmpty()){
             logger.info("AdminServiceImpl中 CheckLogin方法 没有查到用户");
 
             msg.setFlag("false");

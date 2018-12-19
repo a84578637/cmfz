@@ -11,12 +11,13 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+
 @Table(name = "admin")
 public class Admin implements Serializable {
     @Id
     @KeySql(useGeneratedKeys = true)
     private Integer Id;
-    private String username;
-    private String password;
+    private String Username;
+    private String Password;
 
 }
