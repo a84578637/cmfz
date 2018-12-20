@@ -21,8 +21,6 @@
                 } else {
                     alert("请先选中行")
                 }
-
-
             }
         }, '-', {
             text: "删除",
@@ -41,12 +39,12 @@
 
 
         $("#bannerDg").edatagrid({
-            url:'${pageContext.request.contextPath}/#',
+            url:'${pageContext.request.contextPath}/banner/queryAll',
             updateUrl:"${pageContext.request.contextPath}/#",
             columns:[[
                 {field:'title',title:'名称',width:100},
                 {field:'status',title:'状态',width:100},
-                {field:'uploadDate',title:'上传时间',width:100}
+                {field:'pubDate',title:'上传时间',width:100}
             ]],
             //填充单行
             fitColumns:true,
@@ -61,8 +59,8 @@
                 return '<table><tr>' +
                     '<td rowspan=2 style="border:0"><img src="${pageContext.request.contextPath}/img/' + rowData.imgPath + '" style="height:50px;"></td>' +
                     '<td style="border:0">' +
-                    '<p>描述: ' + rowData.desc + '</p>' +
-                    '<p>日期: ' + rowData.uploadDate + '</p>' +
+                    '<p>描述: ' + rowData.description + '</p>' +
+                    '<p>日期: ' + rowData.pubDate + '</p>' +
                     '</td>' +
                     '</tr></table>';
             }

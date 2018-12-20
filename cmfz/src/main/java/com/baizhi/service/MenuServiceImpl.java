@@ -18,6 +18,8 @@ public class MenuServiceImpl implements MenuService {
     Logger a = Logger.getLogger("a");
     @Override
     public List<Menu> getParentMenu() {
+
+
         Example example = new Example(Menu.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("parentId", "-1");

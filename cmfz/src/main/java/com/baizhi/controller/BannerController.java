@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 public class BannerController  {
     @Autowired
     BannerService bannerService;
-Logger log = Logger.getLogger("Banner");
+    Logger log = Logger.getLogger("Banner");
     @RequestMapping("/queryAll")
     public BannerPageDto queryAll(int page, int rows){
         BannerPageDto bannerPageDto = bannerService.getAllBanner(page, rows);

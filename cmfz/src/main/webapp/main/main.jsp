@@ -12,6 +12,8 @@
 
     <script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
 
+    <script type="text/javascript" src="../js/datagrid-detailview.js"></script>
+    <script type="text/javascript" src="../js/jquery.edatagrid.js"></script>
     <script type="text/javascript" src="../js/easyui-lang-zh_CN.js"></script>
     <script type="text/javascript">
         <!--菜单处理-->
@@ -41,7 +43,7 @@
                                     selected: false,
                                     content: a
                                 });
-                            },100)
+                            },300)
 
                   //加载一级菜单
 
