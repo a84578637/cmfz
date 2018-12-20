@@ -31,7 +31,8 @@ public class AdminController {
     @RequestMapping("/Login")
     public Msg login(String username ,String password ,String encode,HttpSession session){
         Object code = session.getAttribute("Code");
-        if(!code.equals(encode)){
+        if(encode.equalsIgnoreCase(code.toString())
+        ){
             a.info("AdminController Login方法中 判断验证码"+code+"--"+encode);
             return new Msg("验证码错误","false");
         }
@@ -42,7 +43,7 @@ public class AdminController {
         a.info("Controller - login方法中用户判断成功："+msg);
         if(msg.getFlag().equals("true")){
             session.setAttribute("Admin",admin);
-            a.info("放入了"+session.getAttribute("Admin"));
+
         }
         return msg;
     }
