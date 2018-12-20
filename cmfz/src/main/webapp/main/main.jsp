@@ -17,57 +17,55 @@
             $.get("${pageContext.request.contextPath}/menu/queryAll",
             function (result) {
                 $.each(result,function (i, item) {
+                    var a="";
                     var id=item.id;
-                  var title1=item.title;
+
+                        $.post(
+                            "${pageContext.request.contextPath}/menu/queryAllchildrenByPid?pid=" + id,
+                            function (data1) {
+                                //console.log(data1);
+                                $.each(data1,function (index1, second) {
+                                    console.log(second.title);
+                                    a+="<p style='text-align: center'><a id=\"btn\" href=\"#\" class=\"easyui-linkbutton\" onclick=\"addTabs('"+second.title+"','"+second.iconcls+"','"+second.url+"')\" data-options=\"iconCls:'"+second.iconcls+"'\">"+second.title+"</a></p>";
+                                })
+
+                            }
+                        )
+                            setTimeout(function () {
+                                $('#aa').accordion('add', {
+                                    title: item.title,
+                                    iconCls: item.iconcls,
+                                    selected: false,
+                                    content: a
+                                });
+                            },100)
+
                   //加载一级菜单
-                        $('#aa').accordion('add', {
-                            title: item.title,
-                            iconCls: item.iconcls,
-                            selected: false,
-                            content: '<div style="padding:10px 0px"><ul id="tree' + id + '"></ul></div>',
-                        });
 
-                    $.post(
-                        "${pageContext.request.contextPath}/menu/queryAllchildrenByPid?pid=" + id,
-                        function (data) {
-                            $("#tree" + id).tree({
-                               data:data,
-                               animate:true,
-                                iconCls:data.iconcls,
-                               formatter:function(data){
 
-                                   return data.title;
-                               },
-                                lines:true,
-                                onClick:function (node) {
-                                    console.log(node);
-                                    if(node){
-                                        addTab(node);
-                                    }
-                                }
-                            });
-                        }
-                    )
+
+
             }
             )
             });
         });
 
         //添加标题栏
-        function addTab(node){
-            var tabExitOrNot=$('#tt').tabs('exists',node.title);
-            console.log(tabExitOrNot);
-            if(tabExitOrNot==true){
-                $('#tt').tabs('select', node.title);
-                return;
+        function addTabs(title,iconCls,url) {
+            var a=$("#tt").tabs("exists",title)
+            if(a){
+                $("#tt").tabs("select",title)
+            }else{
+                $('#tt').tabs('add',{
+                    title: title,
+                    iconCls:iconCls,
+                    href:"${pageContext.request.contextPath}"+url,
+                    selected: true,
+                    closable:true
+
+                });
             }
-            //添加选项卡
-            $('#tt').tabs('add', {
-                title: node.title,
-                content: '<iframe scrolling="auto" frameborder="0" src="${pageContext.request.contextPath}' + node.url + '" style="width:100%;height:600px;"></iframe>',
-                iconCls: node.iconcls,
-                closable: true
-            });
+
         }
 
     </script>
