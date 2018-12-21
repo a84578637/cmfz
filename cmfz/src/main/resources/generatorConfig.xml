@@ -43,7 +43,7 @@
         </javaClientGenerator>
 
         <!-- 要生成哪些表 -->
-        <table tableName="album" domainObjectName="Album"
+            <table tableName="chapter" domainObjectName="Chapter"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false"></table>
