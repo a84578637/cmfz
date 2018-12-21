@@ -18,7 +18,8 @@ import java.util.logging.Logger;
 public class AdminController {
     @Autowired
     AdminService adminService;
-    Logger a = Logger.getLogger("a");
+    @Autowired
+    Logger a;
     @RequestMapping("/test")
     public Admin test(){
         Admin regist = adminService.regist();

@@ -2,37 +2,89 @@
 
 <script type="text/javascript">
     $(function () {
+
+        $("#addBanner").dialog({
+            title:"添加轮播图 ",
+            width:500,
+            height:500,
+            closed:true,
+            cache:false,
+            href:"${pageContext.request.contextPath}/datagrid/AddBanner.jsp",
+            modal:true
+        })
+
+
         var bannerTool=[{
             iconCls: 'icon-add',
             text: "添加",
             handler: function () {
-                alert('编辑按钮')
+                $("#addBanner").dialog("open");
             }
         }, '-', {
             text: "修改",
             iconCls: 'icon-edit',
             handler: function () {
                 //获取选中行
-                var row = $("#dg").edatagrid("getSelected");
+                var row = $("#bannerDg").edatagrid("getSelected");
                 if (row != null) {
                     //编辑指定行
-                    var index = $("#dg").edatagrid("getRowIndex", row);
-                    $("#dg").edatagrid("editRow", index);
+                    var index = $("#bannerDg").edatagrid("getRowIndex", row);
+                    $("#bannerDg").edatagrid("editRow", index);
                 } else {
-                    alert("请先选中行")
+                    $.messager.show({
+                        title:"消息",
+                        msg:"请先选中",
+                        showType:'show',
+                        style:{
+                            right:'',
+                            top:document.body.scrollTop+document.documentElement.scrollTop,
+                            bottom:''
+                        }
+
+                    });
                 }
             }
         }, '-', {
             text: "删除",
             iconCls: 'icon-remove',
             handler: function () {
-                alert('帮助按钮')
+               var row = $("#bannerDg").edatagrid("getSelected");
+                if (row != null) {
+                    //编辑指定行
+
+                    $.post("${pageContext.request.contextPath}/banner/remove",{bid:row.id},function(){
+                        $.messager.show({
+                            title:"消息",
+                            msg:"删除成功",
+                            showType:'show',
+                            style:{
+                                right:'',
+                                top:document.body.scrollTop+document.documentElement.scrollTop,
+                                bottom:''
+                            }
+
+                        });
+                        $("#bannerDg").edatagrid("reload");
+                    });
+                } else {
+                    $.messager.show({
+                        title:"消息",
+                        msg:"请先选中行",
+                        showType:'show',
+                        style:{
+                            right:'',
+                            top:document.body.scrollTop+document.documentElement.scrollTop,
+                            bottom:''
+                        }
+
+                    });
+                }
             }
         }, '-', {
             text: "保存",
             iconCls: 'icon-save',
             handler: function () {
-                $("#dg").edatagrid("saveRow")
+                $("#bannerDg").edatagrid("saveRow")
 
             }
         }];
@@ -40,10 +92,13 @@
 
         $("#bannerDg").edatagrid({
             url:'${pageContext.request.contextPath}/banner/queryAll',
-            updateUrl:"${pageContext.request.contextPath}/#",
+            updateUrl:"${pageContext.request.contextPath}/banner/update",
             columns:[[
                 {field:'title',title:'名称',width:100},
-                {field:'status',title:'状态',width:100},
+                {field:'status',title:'状态',width:100, editor: {
+                        type: "text",
+                        options: {required:true}
+                    }},
                 {field:'pubDate',title:'上传时间',width:100}
             ]],
             //填充单行
@@ -57,7 +112,7 @@
             view:detailview,
             detailFormatter:function (rowIndex, rowData) {
                 return '<table><tr>' +
-                    '<td rowspan=2 style="border:0"><img src="${pageContext.request.contextPath}/img/' + rowData.imgPath + '" style="height:50px;"></td>' +
+                    '<td rowspan=2 style="border:0"><img src="${pageContext.request.contextPath}' + rowData.imgPath + '" style="height:50px;"></td>' +
                     '<td style="border:0">' +
                     '<p>描述: ' + rowData.description + '</p>' +
                     '<p>日期: ' + rowData.pubDate + '</p>' +
@@ -71,6 +126,5 @@
 </script>
 
 <table id="bannerDg"></table>
-
-
+<div id="addBanner"></div>
 

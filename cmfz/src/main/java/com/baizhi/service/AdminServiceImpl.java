@@ -3,13 +3,13 @@ package com.baizhi.service;
 import com.baizhi.entity.Admin;
 import com.baizhi.entity.Msg;
 import com.baizhi.mapper.AdminMapper;
-import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 @Service
 @Transactional
@@ -18,7 +18,8 @@ public class AdminServiceImpl implements AdminService {
     @Autowired
     AdminMapper adminMapper;
 
-    static Logger logger = Logger.getLogger(AdminServiceImpl.class);
+    @Autowired
+    Logger logger;
 
     @Override
     public Admin regist() {

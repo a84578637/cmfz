@@ -14,7 +14,8 @@ import java.util.logging.Logger;
 public class MenuController {
     @Autowired
     MenuService menuService;
-    Logger a = Logger.getLogger("a");
+    @Autowired
+            Logger a;
 
 
 

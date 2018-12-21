@@ -15,7 +15,9 @@ import java.util.logging.Logger;
 public class MenuServiceImpl implements MenuService {
     @Autowired
     MenuMapper menuMapper;
-    Logger a = Logger.getLogger("a");
+    @Autowired
+            Logger a;
+
     @Override
     public List<Menu> getParentMenu() {
 
