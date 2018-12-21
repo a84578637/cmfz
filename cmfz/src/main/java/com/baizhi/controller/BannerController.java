@@ -47,13 +47,15 @@ public class BannerController {
         log.info("进入添加"+file);
         ServletContext ctx = session.getServletContext();
         String realPath = ctx.getRealPath("/img");
-        System.out.println(realPath);
+
         String filename = file.getOriginalFilename();
         String path=realPath + "/" +filename;
 
         //将内存中的图片输出到相应位置
         File file1 = new File(path);
         file.transferTo(file1);
+
+
         //初始化BANNER属性
         banner.setImgPath("/img/"+filename);
         banner.setPubDate(new Date());

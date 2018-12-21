@@ -24,8 +24,10 @@ public class BannerServiceImpl implements BannerService {
 
     @Override
     public BannerPageDto getAllBanner(Integer page,Integer rows) {
-        PageInfo<Banner> pageInfo = PageHelper.startPage(page, rows).setOrderBy("id").doSelectPageInfo(() -> this.bannerMapper.selectAll());
+        PageInfo<Banner> pageInfo = PageHelper.startPage(page, rows).setOrderBy("id")
+                                    .doSelectPageInfo(() -> this.bannerMapper.selectAll());
           log.info("BannerServiceImpl中，getAllBanner查询到结果："+pageInfo);
+        PageInfo<Banner> objectPageInfo = PageHelper.startPage(1, 3).doSelectPageInfo(() -> this.bannerMapper.selectAll());
         BannerPageDto bannerPageDto = new BannerPageDto((int )pageInfo.getTotal(),pageInfo.getList());
         return bannerPageDto;
     }
@@ -39,6 +41,7 @@ public class BannerServiceImpl implements BannerService {
         log.info("真是地址为——————————————————————"+realpath);
         new File(realpath).delete();
         bannerMapper.deleteByPrimaryKey(id);
+
         log.info("BannerServiceImpl中，删除成功！");
     }
 
