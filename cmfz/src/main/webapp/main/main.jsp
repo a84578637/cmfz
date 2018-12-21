@@ -19,6 +19,7 @@
         <!--菜单处理-->
 
         $(function () {
+            var albumid="";
             $.get("${pageContext.request.contextPath}/menu/queryAll",
             function (result) {
                 $.each(result,function (i, item) {

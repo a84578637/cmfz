@@ -11,7 +11,7 @@
             cache:false,
             href:"${pageContext.request.contextPath}/datagrid/AddBanner.jsp",
             modal:true
-        })
+        });
 
 
         var bannerTool=[{

@@ -78,10 +78,10 @@ public class CmfzApplicationTests {
 
     @Test
     public void TestAlbumPage2(){
-        List<Album> albums = albumMapper.selectAllAlbum(0, 1);
-        logger.info("第一次查询一个，结果又："+albums.size());
-        List<Album> albums1 = albumMapper.selectAllAlbum(0, 2);
-        logger.info("第二次查询，结果有："+albums1.size());
+        List<Album> albums = albumMapper.selectAllAlbum(1, 1);
+        logger.info("第一次查询一个，结果又："+albums);
+        List<Album> albums1 = albumMapper.selectAllAlbum(1, 2);
+        logger.info("第二次查询，结果有："+albums1);
 
 
     }

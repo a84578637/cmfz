@@ -1,11 +1,11 @@
 package com.baizhi.service;
 
 import com.baizhi.entity.Album;
-
-import java.util.List;
+import com.baizhi.entity.AlbumPageDto;
 
 public interface AlbumService {
-    public List<Album> getAllAlbum(Integer page,Integer rows);
+    public AlbumPageDto getAllAlbum(Integer page, Integer rows);
     public void regist(Album album);
+    public Album getOne(Integer id);
 
 }

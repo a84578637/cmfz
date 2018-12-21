@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
+import java.util.UUID;
 import java.util.logging.Logger;
 
 @RestController
@@ -47,17 +48,18 @@ public class BannerController {
         log.info("进入添加"+file);
         ServletContext ctx = session.getServletContext();
         String realPath = ctx.getRealPath("/img");
+        String uuidName = UUID.randomUUID().toString().replace("-","")+".jpg";
 
-        String filename = file.getOriginalFilename();
-        String path=realPath + "/" +filename;
-
+        String path=realPath + "/" +uuidName;
+        log.info("地址："+path);
         //将内存中的图片输出到相应位置
         File file1 = new File(path);
+
         file.transferTo(file1);
 
 
         //初始化BANNER属性
-        banner.setImgPath("/img/"+filename);
+        banner.setImgPath("/img/"+uuidName);
         banner.setPubDate(new Date());
         banner.setStatus("N");
 

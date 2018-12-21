@@ -41,8 +41,8 @@
                c.album_id    calbum_id,
                c.duration    cduration,
                c.upload_date cupload_date
-        from (select * from album limit #{page},#{rows}) a
-                 left join chapter c
-                           on a.id = c.album_id
+        from (select * from album limit ${(page-1)*rows},${rows}) a
+                 left join chapter c   on a.id = c.album_id
+
     </select>
 </mapper>

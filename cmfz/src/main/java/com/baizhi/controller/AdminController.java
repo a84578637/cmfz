@@ -32,7 +32,7 @@ public class AdminController {
     @RequestMapping("/Login")
     public Msg login(String username ,String password ,String encode,HttpSession session){
         Object code = session.getAttribute("Code");
-        if(encode.equalsIgnoreCase(code.toString())
+        if(!encode.equalsIgnoreCase(code.toString())
         ){
             a.info("AdminController Login方法中 判断验证码"+code+"--"+encode);
             return new Msg("验证码错误","false");
