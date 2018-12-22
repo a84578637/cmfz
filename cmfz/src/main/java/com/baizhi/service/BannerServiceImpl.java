@@ -20,25 +20,26 @@ public class BannerServiceImpl implements BannerService {
     BannerMapper bannerMapper;
 
     @Autowired
-            Logger log;
+    Logger log;
 
     @Override
-    public BannerPageDto getAllBanner(Integer page,Integer rows) {
+    public BannerPageDto getAllBanner(Integer page, Integer rows) {
         PageInfo<Banner> pageInfo = PageHelper.startPage(page, rows).setOrderBy("id")
-                                    .doSelectPageInfo(() -> this.bannerMapper.selectAll());
-          log.info("BannerServiceImpl中，getAllBanner查询到结果："+pageInfo);
+                .doSelectPageInfo(() -> this.bannerMapper.selectAll());
+        log.info("BannerServiceImpl中，getAllBanner查询到结果：" + pageInfo);
         PageInfo<Banner> objectPageInfo = PageHelper.startPage(1, 3).doSelectPageInfo(() -> this.bannerMapper.selectAll());
-        BannerPageDto bannerPageDto = new BannerPageDto((int )pageInfo.getTotal(),pageInfo.getList());
+        BannerPageDto bannerPageDto = new BannerPageDto((int) pageInfo.getTotal(), pageInfo.getList());
         return bannerPageDto;
     }
+
     @Override
     public void removeBanner(Integer id) throws IOException {
-        log.info("BannerServiceImpl中，删除的ID为："+id);
+        log.info("BannerServiceImpl中，删除的ID为：" + id);
         File file = new File("./src/main/webapp");
         String canonicalPath = file.getCanonicalPath();
         Banner banner = bannerMapper.selectByPrimaryKey(id);
-        String realpath=canonicalPath+""+banner.getImgPath();
-        log.info("真是地址为——————————————————————"+realpath);
+        String realpath = canonicalPath + "" + banner.getImgPath();
+        log.info("真是地址为——————————————————————" + realpath);
         new File(realpath).delete();
         bannerMapper.deleteByPrimaryKey(id);
 
@@ -47,14 +48,14 @@ public class BannerServiceImpl implements BannerService {
 
     @Override
     public void registBanner(Banner b) {
-        log.info("BannerServiceImpl中，添加Banner为："+b);
+        log.info("BannerServiceImpl中，添加Banner为：" + b);
         bannerMapper.insert(b);
         log.info("BannerServiceImpl中，添加完成");
     }
 
     @Override
     public void updateBanner(Banner b) {
-        log.info("BannerServiceImpl中，修改Banner为："+b);
+        log.info("BannerServiceImpl中，修改Banner为：" + b);
         bannerMapper.updateByPrimaryKey(b);
         log.info("BannerServiceImpl中，修改完成");
     }

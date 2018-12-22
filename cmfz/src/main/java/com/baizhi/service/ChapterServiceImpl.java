@@ -49,4 +49,10 @@ public class ChapterServiceImpl implements ChapterService{
 
         System.out.println("---------------------------"+chapter);
     }
+
+    @Override
+    public Chapter queryOne(String id) {
+        Chapter chapter = chapterMapper.selectByPrimaryKey(id);
+        return chapter;
+    }
 }

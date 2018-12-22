@@ -19,24 +19,24 @@
         <!--菜单处理-->
 
         $(function () {
-            var albumid="";
+            var albumid = "";
             $.get("${pageContext.request.contextPath}/menu/queryAll",
-            function (result) {
-                $.each(result,function (i, item) {
-                    var a="";
-                    var id=item.id;
+                function (result) {
+                    $.each(result, function (i, item) {
+                            var a = "";
+                            var id = item.id;
 
-                        $.post(
-                            "${pageContext.request.contextPath}/menu/queryAllchildrenByPid?pid=" + id,
-                            function (data1) {
-                                //console.log(data1);
-                                $.each(data1,function (index1, second) {
-                                    console.log(second.title);
-                                    a+="<p style='text-align: center'><a id=\"btn\" href=\"#\" class=\"easyui-linkbutton\" onclick=\"addTabs('"+second.title+"','"+second.iconcls+"','"+second.url+"')\" data-options=\"iconCls:'"+second.iconcls+"'\">"+second.title+"</a></p>";
-                                })
+                            $.post(
+                                "${pageContext.request.contextPath}/menu/queryAllchildrenByPid?pid=" + id,
+                                function (data1) {
+                                    //console.log(data1);
+                                    $.each(data1, function (index1, second) {
+                                        console.log(second.title);
+                                        a += "<p style='text-align: center'><a id=\"btn\" href=\"#\" class=\"easyui-linkbutton\" onclick=\"addTabs('" + second.title + "','" + second.iconcls + "','" + second.url + "')\" data-options=\"iconCls:'" + second.iconcls + "'\">" + second.title + "</a></p>";
+                                    })
 
-                            }
-                        )
+                                }
+                            )
                             setTimeout(function () {
                                 $('#aa').accordion('add', {
                                     title: item.title,
@@ -44,30 +44,28 @@
                                     selected: false,
                                     content: a
                                 });
-                            },300)
+                            }, 200)
 
-                  //加载一级菜单
-
-
+                            //加载一级菜单
 
 
-            }
-            )
-            });
+                        }
+                    )
+                });
         });
 
         //添加标题栏
-        function addTabs(title,iconCls,url) {
-            var a=$("#tt").tabs("exists",title)
-            if(a){
-                $("#tt").tabs("select",title)
-            }else{
-                $('#tt').tabs('add',{
+        function addTabs(title, iconCls, url) {
+            var a = $("#tt").tabs("exists", title)
+            if (a) {
+                $("#tt").tabs("select", title)
+            } else {
+                $('#tt').tabs('add', {
                     title: title,
-                    iconCls:iconCls,
-                    href:"${pageContext.request.contextPath}"+url,
+                    iconCls: iconCls,
+                    href: "${pageContext.request.contextPath}" + url,
                     selected: true,
-                    closable:true
+                    closable: true
 
                 });
             }
