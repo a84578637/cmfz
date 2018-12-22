@@ -15,7 +15,6 @@
     总分数：<input style="width:200px" name="score" /></br>
     总集数：<input style="width:200px" name="count" /></br>
     简  介：<input style="width:200px" name="brief" /></br>
-    上传日：<input style="width:200px" name="pubDate" /></br>
     <br /> <input type="button" id="btnUpload2" value="上传文件" onclick="upload()" />
 
 
@@ -73,7 +72,7 @@
                             bottom:''
                         }
                     });
-                    $("#album").edatagrid("load");
+                    $("#album").treegrid("reload");
                     setTimeout(function () {
                         $("#addAlbum").dialog("close");
 

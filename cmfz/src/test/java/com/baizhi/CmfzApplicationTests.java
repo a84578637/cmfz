@@ -1,5 +1,6 @@
 package com.baizhi;
 
+import com.baizhi.conf.VideoUtil;
 import com.baizhi.entity.Album;
 import com.baizhi.entity.Banner;
 import com.baizhi.entity.BannerPageDto;
@@ -82,7 +83,15 @@ public class CmfzApplicationTests {
         logger.info("第一次查询一个，结果又："+albums);
         List<Album> albums1 = albumMapper.selectAllAlbum(1, 2);
         logger.info("第二次查询，结果有："+albums1);
+    }
 
+    @Test
+    public void Testurl(){
+
+        String duration = VideoUtil.getDuration("F:\\1.11\\C5\\110后期项目\\后期项目\\7. 项目音频\\多智钦仁波切念诵\\多智仁波切念诵.MP3");
+        String fileSize = VideoUtil.getFileSize("F:\\1.11\\C5\\110后期项目\\后期项目\\7. 项目音频\\多智钦仁波切念诵\\多智仁波切念诵.MP3");
+        logger.info("大小为："+fileSize);
+        logger.info("时长为:"+duration);
 
     }
 

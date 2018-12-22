@@ -6,10 +6,35 @@ $(function () {
     console.log(paramid);
     $("#album1").textbox({
         readonly:true
-    })
+    });
+    $("#album2").textbox({
+        readonly:true
+    });
+    $("#album3").textbox({
+        readonly:true
+    });
+    $("#album4").textbox({
+        readonly:true
+    });
+    $("#album5").textbox({
+        readonly:true
+    });
+    $("#album6").textbox({
+        readonly:true
+    });
+    $("#album7").textbox({
+        readonly:true
+    });
+
+
 
 
     $('#albumForm').form("load","${pageContext.request.contextPath}/album/OneAlbum?id="+paramid);
+
+    setTimeout(function () {
+        var coverimgsrc = "${pageContext.request.contextPath}/img/"+$("#album8").val();
+        $("#albumPic").attr("src",coverimgsrc);
+    },100);
 
 
 })
@@ -24,8 +49,8 @@ $(function () {
     总集数：<input style="width:200px" name="count" id="album5"/></br>
     简  介：<input style="width:200px" name="brief" id="album6"/></br>
     上传日：<input style="width:200px" name="pubDate" id="album7"/></br>
-
-        <img src="${pageContext.request.contextPath}/img/banner1.JPG" width="300" HEIGHT="200"/>
+        <input style="width:200px" name="coverImg" id="album8" hidden="hidden"/></br>
+        <img id="albumPic" src="#" width="300" HEIGHT="200"/>
     </form>
 
 </div>

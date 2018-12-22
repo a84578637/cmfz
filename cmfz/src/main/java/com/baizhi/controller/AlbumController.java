@@ -13,6 +13,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 import java.util.UUID;
 import java.util.logging.Logger;
 
@@ -46,7 +47,6 @@ Logger logger;
         logger.info("进入添加"+file);
         System.out.println("1");
         ServletContext ctx = session.getServletContext();
-
         String realPath = ctx.getRealPath("/img");
 
         String uuidName = UUID.randomUUID().toString().replace("-","")+".jpg";
@@ -59,10 +59,8 @@ Logger logger;
         file.transferTo(file1);
         //文件操作结束
 
-
-
-        //初始化BANNER属性
-
+        album.setCoverImg(uuidName);
+        album.setPubDate(new Date());
 
         albumService.regist(album);
 

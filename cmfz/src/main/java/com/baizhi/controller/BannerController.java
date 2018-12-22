@@ -38,8 +38,6 @@ public class BannerController {
     @RequestMapping("/remove")
     public void remove(Integer  bid) throws IOException {
 
-       // String realPath = session.getServletContext().getRealPath("");
-       // log.info("地址为:+---------"+canonicalPath);
         bannerService.removeBanner(bid);
 
     }
@@ -48,7 +46,7 @@ public class BannerController {
         log.info("进入添加"+file);
         ServletContext ctx = session.getServletContext();
         String realPath = ctx.getRealPath("/img");
-        String uuidName = UUID.randomUUID().toString().replace("-","")+".jpg";
+        String uuidName = UUID.randomUUID().toString().replace("-","")+"JPG";
 
         String path=realPath + "/" +uuidName;
         log.info("地址："+path);
@@ -62,7 +60,6 @@ public class BannerController {
         banner.setImgPath("/img/"+uuidName);
         banner.setPubDate(new Date());
         banner.setStatus("N");
-
         bannerService.registBanner(banner);
         log.info("banner添加成功"+banner);
 
