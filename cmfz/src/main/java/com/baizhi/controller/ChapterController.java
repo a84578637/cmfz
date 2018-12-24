@@ -26,7 +26,6 @@ public class ChapterController {
     @RequestMapping("/regist")
     public void regist(@RequestParam("uploadFile") MultipartFile file, Chapter chapter) {
 
-
         chapterService.regist(chapter, file);
         log.info("添加章节成功");
 

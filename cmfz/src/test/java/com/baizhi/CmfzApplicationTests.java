@@ -1,5 +1,7 @@
 package com.baizhi;
 
+
+import com.baizhi.conf.SnowflakeIdWorker;
 import com.baizhi.conf.VideoUtil;
 import com.baizhi.entity.Album;
 import com.baizhi.entity.Banner;
@@ -93,6 +95,17 @@ public class CmfzApplicationTests {
         logger.info("大小为："+fileSize);
         logger.info("时长为:"+duration);
 
+    }
+    @Test
+    public void TestSnowFlake(){
+        System.out.println("开始："+System.currentTimeMillis());
+        SnowflakeIdWorker idWorker = new SnowflakeIdWorker(0, 0);
+        for (int i = 0; i < 50; i++) {
+            long id = idWorker.nextId();
+            System.out.println(id);
+//            System.out.println(Long.toBinaryString(id));
+        }
+        System.out.println("结束："+System.currentTimeMillis());
     }
 
 }

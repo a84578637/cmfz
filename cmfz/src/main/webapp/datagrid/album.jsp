@@ -111,6 +111,12 @@
                     alert("请先选中行")
                 }
             }
+        }, '-', {
+            text: "导出",
+            iconCls: 'icon-save',
+            handler: function () {
+                window.location.href="${pageContext.request.contextPath}/album/poi";
+            }
         }]
 
 

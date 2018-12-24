@@ -43,4 +43,26 @@ public class AlbumServiceImpl implements AlbumService{
 
         return album;
     }
+
+    @Override
+    public List<Album> getPOI() {
+        List<Album> albums = albumMapper.selectAllPOI();
+     /*   File file = new File("./src/main/webapp/img/");
+        String canonicalPath=null;
+        try {
+            canonicalPath = file.getCanonicalPath();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
+        for (Album album : albums) {
+
+
+           // album.setCoverImg("img/"+album.getCoverImg());
+            album.setCoverImg("F:/testImg/"+album.getCoverImg());
+
+           // logger.info("路径为："+album.getCoverImg());
+        }
+
+        return albums;
+    }
 }

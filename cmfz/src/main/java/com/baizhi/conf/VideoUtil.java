@@ -35,8 +35,6 @@ public class VideoUtil {
 
             DecimalFormat df = new DecimalFormat("#.##");
 
-            // double resourceSize = (double)((double) fis.available() / 1024);
-            // ELog.e(TAG, "resourceSize:" + resourceSize);
 
             if((double)((double) fis.available() / 1024) > 1000) {
                 resourceSizeMb = df.format((double)((double) fis.available() / 1024 / 1024)) + "MB";
