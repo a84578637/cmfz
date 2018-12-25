@@ -55,8 +55,6 @@ public class AlbumServiceImpl implements AlbumService{
             e.printStackTrace();
         }*/
         for (Album album : albums) {
-
-
            // album.setCoverImg("img/"+album.getCoverImg());
             album.setCoverImg("F:/testImg/"+album.getCoverImg());
 

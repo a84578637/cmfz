@@ -14,7 +14,10 @@
 
     <script type="text/javascript" src="../js/datagrid-detailview.js"></script>
     <script type="text/javascript" src="../js/jquery.edatagrid.js"></script>
+
     <script type="text/javascript" src="../js/easyui-lang-zh_CN.js"></script>
+    <script src="../js/echarts.min.js"></script>
+    <script src="../js/china.js"></script>
     <script type="text/javascript">
         <!--菜单处理-->
 
