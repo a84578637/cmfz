@@ -7,10 +7,14 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="cmfz" />
+        <module name="springboot-fastdfs" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="cmfz" target="1.8" />
+      <module name="java-fastdfs" target="1.7" />
+      <module name="javafastdfs" target="1.5" />
+      <module name="springboot-fastdfs" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">

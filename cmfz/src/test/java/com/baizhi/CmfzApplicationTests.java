@@ -1,15 +1,18 @@
 package com.baizhi;
 
 
+import com.alibaba.fastjson.JSON;
 import com.baizhi.conf.SnowflakeIdWorker;
+import com.baizhi.conf.TestUtil;
 import com.baizhi.conf.VideoUtil;
-import com.baizhi.entity.Album;
-import com.baizhi.entity.Banner;
-import com.baizhi.entity.BannerPageDto;
+import com.baizhi.entity.*;
 import com.baizhi.mapper.AlbumMapper;
 import com.baizhi.mapper.BannerMapper;
+import com.baizhi.mapper.UserMapper;
+import com.baizhi.service.UserService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import io.goeasy.GoEasy;
 import org.apache.ibatis.session.RowBounds;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,16 +21,24 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import tk.mybatis.spring.annotation.MapperScan;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @MapperScan("com.baizhi.mapper")
 public class CmfzApplicationTests {
-
+    @Autowired
+    UserService userService;
     @Autowired
     BannerMapper bannerMapper;
+    @Autowired
+    UserMapper userMapper;
+
     Logger logger = Logger.getLogger("a");
 
     @Autowired
@@ -106,6 +117,97 @@ public class CmfzApplicationTests {
 //            System.out.println(Long.toBinaryString(id));
         }
         System.out.println("结束："+System.currentTimeMillis());
+    }
+
+    @Test
+    public void TestName(){
+        TestUtil testUtil = new TestUtil();
+        for (int i = 0; i < 100; i++) {
+
+           // String name = testUtil.getName();
+            String chineseName = testUtil.getChineseName();
+
+            logger.info("姓名为："+chineseName);
+        }
+    }
+
+    @Test
+    public void TestDate(){
+        TestUtil testUtil = new TestUtil();
+        for (int i = 0; i < 100; i++) {
+
+            // String name = testUtil.getName();
+            Date date = testUtil.getDate("2018-11-1", "2018-12-25");
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            String format1 = format.format(date);
+            logger.info("时间为："+format1);
+        }
+    }
+    @Test
+    public void TestProvince(){
+        TestUtil testUtil = new TestUtil();
+        for (int i = 0; i < 100; i++) {
+
+            // String name = testUtil.getName();
+            String province = testUtil.getProvince();
+            logger.info("省为："+province);
+        }
+    }
+
+    @Test
+    public void addUser(){
+        TestUtil testUtil = new TestUtil();
+        ArrayList<User> users = new ArrayList<>();
+        for (int i = 0; i <1000; i++) {
+            User user = new User();
+            user.setProvince(testUtil.getProvince());
+            user.setName(testUtil.getChineseName());
+            user.setDharma(testUtil.getName());
+            user.setRegDate(testUtil.getDate("2018-8-1", "2018-12-25"));
+            user.setSex(testUtil.getSex());
+            user.setStatus("1");
+            user.setSign("测试用户");
+            user.setCity("测试市区");
+            user.setPassword("111111");
+            user.setSalt("123456");
+             users.add(user);
+             if(users.size()>300){
+                userMapper.addList(users);
+                 users.clear();
+                 logger.info("插入----"+i);
+             }
+        }
+        userMapper.addList(users);
+
+
+    }
+
+    @Test
+    public void easygo(){
+        GoEasy goEasy = new GoEasy( "http://rest-hangzhou.goeasy.io", "BC-5d656a5ce51b45779a80fbe8903f8c4c");
+                goEasy.publish("140", "Hello, GoEasy!");
+
+    }
+
+    @Test
+    public void easyGoUserAdd(){
+        Map<String, List<Integer>> userRegist = userService.getUserRegist();
+
+
+        List<Integer> data = userRegist.get("data");
+        String s = JSON.toJSONString(data);
+        GoEasy goEasy = new GoEasy( "http://rest-hangzhou.goeasy.io", "BC-5d656a5ce51b45779a80fbe8903f8c4c");
+        goEasy.publish("user140", s);
+
+    }
+
+    @Test
+    public void easyGoUserProvinceAdd(){
+        Map<String, List<ProvinceJson>> userProvince = userService.getUserProvince();
+        String s = JSON.toJSONString(userProvince);
+        GoEasy goEasy = new GoEasy( "http://rest-hangzhou.goeasy.io", "BC-5d656a5ce51b45779a80fbe8903f8c4c");
+        goEasy.publish("userProvince",s);
+
     }
 
 }

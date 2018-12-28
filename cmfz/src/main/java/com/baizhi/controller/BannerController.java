@@ -3,6 +3,7 @@ package com.baizhi.controller;
 import com.baizhi.entity.Banner;
 import com.baizhi.entity.BannerPageDto;
 import com.baizhi.service.BannerService;
+import com.github.tobato.fastdfs.service.FastFileStorageClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,6 +24,8 @@ public class BannerController {
     @Autowired
     BannerService bannerService;
     @Autowired
+    FastFileStorageClient fastFileStorageClient;
+    @Autowired
             Logger log;
 
     @RequestMapping("/queryAll")
@@ -39,6 +42,7 @@ public class BannerController {
     public void remove(Integer  bid) throws IOException {
 
         bannerService.removeBanner(bid);
+
 
     }
     @RequestMapping("/regist")

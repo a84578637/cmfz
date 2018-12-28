@@ -30,5 +30,21 @@
         }]
     })
     },"JSON")
-
+    var goEasy = new GoEasy({
+        appkey: "BC-5d656a5ce51b45779a80fbe8903f8c4c"
+    });
+    goEasy.subscribe({
+        channel: "user140",
+        onMessage: function (message) {
+           // alert("Channel:" + message.channel + " content:" + message.content);
+            var m = eval(message);
+            console.log(m.content);
+            myChart.setOption({
+                series: [{
+                    data: m.content,
+                    type: 'bar'
+                }]
+            })
+        }
+    });
 </script>
