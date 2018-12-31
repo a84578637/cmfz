@@ -13,5 +13,6 @@ public interface UserMapper extends Mapper<User> {
         public List<ProvinceJson> getUserProvince();
         public List<ProvinceJson> getUserProvinceWoMan();
         public List<ProvinceJson> getUserProvinceMan();
+        public List<User> getMamber(@Param("uid")Integer uid);
 
 }

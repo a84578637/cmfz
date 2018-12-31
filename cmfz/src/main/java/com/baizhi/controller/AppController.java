@@ -1,16 +1,23 @@
 package com.baizhi.controller;
 
+import com.alibaba.excel.util.FileUtil;
 import com.baizhi.entity.Msg;
 import com.baizhi.entity.User;
 import com.baizhi.service.AppService;
+import com.github.tobato.fastdfs.domain.fdfs.StorePath;
+import com.github.tobato.fastdfs.service.FastFileStorageClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.*;
+import java.util.List;
+
 @RestController
 @RequestMapping("/app")
 public class AppController {
-
+@Autowired
+FastFileStorageClient fastFileStorageClient;
     @Autowired
     AppService    appService;
 
@@ -95,14 +102,80 @@ public class AppController {
 
     }
     @RequestMapping("/regist")
-    public void regist(String phone,String password){
+    public Object regist(String phone,String password){
+        if(phone==null&&password==null){
+            return new Msg("手机号或密码为空","-200");
+        }else{
+
+            Object regist = appService.regist(phone, password);
+            if (regist!=null){
+                return regist;
+            }else{
+                return new Msg("手机号已被注册","-205");
+            }
+
+        }
 
     }
 
-    @RequestMapping("/modify")
-    public Object modify(Integer uid,String gender,Byte photo,String location,String description,String nickname,String province,String city,String password){
+    @RequestMapping("/account")
+    public Object account(Integer uid,String gender,byte[] photo,String location,String description,String nickname,String province,String city,String password){
+            if(uid==null){
+                return new Msg("用户ID不能为空","-206");
+            }else{
+                FileInputStream fis =null;
+                try {
+                   fis =  new FileInputStream("fis");
+                    fis.read(photo);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                /*//将Byte字节数组转化为文件转存
+                BufferedOutputStream bos = null;
+                         FileOutputStream fos = null;
+                         File file = null;
+                FileInputStream fis=null;
+                     try {
+                         File dir = new File("./src/main/webapp/img");
+        if(!dir.exists()&&dir.isDirectory()){
+            dir.mkdirs();
+        }
+        file=new File("./src/main/webapp/img"+"\\"+"default.jpg");
+        fos = new FileOutputStream(file);
+        bos=new BufferedOutputStream(fos);
+        bos.write(photo);
+        //写完成
+           } catch (Exception e) {
+                         e.printStackTrace();
+              }finally {
+                         if(bos!=null){
+                             try {
+                                 bos.close();
+                             }catch (IOException e1){
+                                 e1.printStackTrace();
+                             }
+                         }
+                         if(fos!=null){
+                             try {
+                                 fos.close();
+                             }catch (IOException e2){
+                                 e2.printStackTrace();
+                             }
+                         }
+                     }*/
+                //写完成,将头像转存到FDFS
 
-        return null;
+                StorePath path = fastFileStorageClient.uploadFile(fis, 12580, "jpg", null);
+                String path1 = path.getPath();
+
+                Object account = appService.account(uid, gender, path1, location, description, nickname, province, city, password);
+                if(account==null){
+                    return new Msg("该用户不存在","-200");
+                }else{
+                    return account;
+                }
+            }
+
     }
 
 
@@ -123,9 +196,10 @@ public class AppController {
     }
 
     @RequestMapping("/member")
-    public Object member(String uid){
+    public List<User> member(Integer uid){
+        List<User> member = appService.member(uid);
 
-        return null;
+        return member;
     }
 
 

@@ -33,4 +33,8 @@
     <select id="getUserProvinceWoMan" resultType="ProvinceJson">
         select count(*) value,province name from user where sex='女' group by province
     </select>
+    <select id="getMamber" resultType="User">
+        select * from user where id!=#{uid} limit 0,5
+    </select>
+
 </mapper>

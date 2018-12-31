@@ -6,6 +6,7 @@ import com.baizhi.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import tk.mybatis.mapper.entity.Example;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -66,4 +67,56 @@ public class UserServiceImpl implements UserService {
         User user1 = userMapper.selectOne(user);
         return user1;
     }
+
+    @Override
+    public Integer registApp(User user) {
+
+        Example example = new Example(User.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("phone",user.getPhone());
+        List<User> users = userMapper.selectByExample(example);
+        if(users==null){
+            int id = userMapper.insert(user);
+
+            return id;
+        }else{
+            return null;
+        }
+
+
+
+    }
+
+    @Override
+    public Object updateApp(User user) {
+
+        if(isEmpty(user.getId())){
+            return null;
+        }else{
+            int i = userMapper.updateByPrimaryKey(user);
+            return i;
+        }
+
+
+    }
+
+    @Override
+    public List<User> memberApp(Integer uid) {
+
+        List<User> mamber = userMapper.getMamber(uid);
+
+        return mamber;
+    }
+
+    public boolean isEmpty(Integer uid){
+
+        User user = userMapper.selectByPrimaryKey(uid);
+        if(user==null){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+
 }

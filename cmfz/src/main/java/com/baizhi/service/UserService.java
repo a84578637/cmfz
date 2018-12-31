@@ -10,4 +10,7 @@ public interface UserService  {
     public Map<String , List<Integer>> getUserRegist();
     public Map<String , List<ProvinceJson>> getUserProvince();
     public User getAppLogin(String phone);
+    public Integer registApp(User user);
+    public Object updateApp(User user);
+    public List<User> memberApp(Integer uid);
 }

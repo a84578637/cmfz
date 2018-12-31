@@ -8,12 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
 @Service
 @Transactional
 public class AppServiceImpl implements AppService {
+
 @Autowired
 BannerService bannerService;
 @Autowired
@@ -76,6 +78,50 @@ UserService userService;
         User appLogin = userService.getAppLogin(phone);
 
         return appLogin;
+    }
+
+    @Override
+    public Object regist(String phone, String password) {
+        User user = new User();
+        user.setPhone(phone);
+        user.setPassword(password);
+        user.setSalt("000000");
+        user.setStatus("-1");
+        user.setRegDate(new Date());
+        Integer id = userService.registApp(user);
+        if(id==null){
+            return null;
+        }else{
+            user.setId(id);
+            return user;
+        }
+
+    }
+
+    @Override
+    public Object account(Integer uid, String gender, String photo, String location, String description, String nickname, String province, String city, String password) {
+        User user = new User();
+        user.setId(uid);
+        user.setStatus("1");
+        user.setCity(city);
+        user.setPassword(password);
+        user.setName(nickname);
+        user.setProvince(province);
+        user.setHeadPic(photo);
+        user.setSign(description);
+        user.setDharma(location);
+        Object o = userService.updateApp(user);
+        if(o==null){
+            return null;
+        }else{
+            return o;
+        }
+    }
+
+    @Override
+    public List<User> member(Integer uid) {
+        List<User> o = userService.memberApp(uid);
+        return o;
     }
 
 }
