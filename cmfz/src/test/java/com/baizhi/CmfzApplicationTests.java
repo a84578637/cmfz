@@ -12,6 +12,8 @@ import com.baizhi.mapper.UserMapper;
 import com.baizhi.service.UserService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.github.tobato.fastdfs.domain.fdfs.StorePath;
+import com.github.tobato.fastdfs.service.FastFileStorageClient;
 import io.goeasy.GoEasy;
 import org.apache.ibatis.session.RowBounds;
 import org.junit.Test;
@@ -21,11 +23,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import tk.mybatis.spring.annotation.MapperScan;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.logging.Logger;
 
 @RunWith(SpringRunner.class)
@@ -38,6 +40,8 @@ public class CmfzApplicationTests {
     BannerMapper bannerMapper;
     @Autowired
     UserMapper userMapper;
+    @Autowired
+    FastFileStorageClient fastFileStorageClient;
 
     Logger logger = Logger.getLogger("a");
 
@@ -209,6 +213,26 @@ public class CmfzApplicationTests {
         goEasy.publish("userProvince",s);
 
     }
+
+    @Test
+    public void contextLoads1() throws FileNotFoundException {
+        File file = new File("F:/1.jpg");
+        StorePath path = fastFileStorageClient.uploadFile(new FileInputStream(file), file.length(), "jpg", null);
+        System.out.println(path);
+    }
+
+    @Test
+    public void Time(){
+        Timer timer = new Timer();
+
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+
+            }
+        }, 1000, 3000);
+    }
+
 
 }
 

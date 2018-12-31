@@ -7,7 +7,7 @@
 
         function albumform(value, row, index) {
             if (row.author == null) {
-                return "<audio controls='controls' src='${pageContext.request.contextPath}" + row.url + "'    >音频</audio>";
+                return "<audio controls='controls' src='http://192.168.194.134/" + row.url + "'    >音频</audio>";
             }
 
         }

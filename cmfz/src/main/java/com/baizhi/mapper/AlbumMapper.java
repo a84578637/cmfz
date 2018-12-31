@@ -9,4 +9,5 @@ import java.util.List;
 public interface AlbumMapper extends Mapper<Album> {
     public List<Album> selectAllAlbum(@Param("page") Integer page, @Param("rows") Integer rows);
     public List<Album> selectAllPOI();
+    public List<Album> selectAppAlbum(@Param("count")Integer count);
 }

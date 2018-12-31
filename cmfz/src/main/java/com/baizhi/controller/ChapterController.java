@@ -2,6 +2,8 @@ package com.baizhi.controller;
 
 import com.baizhi.entity.Chapter;
 import com.baizhi.service.ChapterService;
+import com.github.tobato.fastdfs.domain.proto.storage.DownloadByteArray;
+import com.github.tobato.fastdfs.service.FastFileStorageClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,14 +21,15 @@ public class ChapterController {
 
     @Autowired
     ChapterService chapterService;
-
+    @Autowired
+    FastFileStorageClient fastFileStorageClient;
     @Autowired
     Logger log;
 
     @RequestMapping("/regist")
-    public void regist(@RequestParam("uploadFile") MultipartFile file, Chapter chapter) {
+    public void regist(@RequestParam("uploadFile") MultipartFile file, Chapter chapter) throws IOException {
 
-        chapterService.regist(chapter, file);
+        chapterService.regist(chapter,file);
         log.info("添加章节成功");
 
     }
@@ -34,20 +37,22 @@ public class ChapterController {
     @RequestMapping("/download")
     public String download(String id, HttpServletResponse response) throws IOException {
         Chapter chapter = chapterService.queryOne(id);
-        File file = new File("./src/main/webapp" + chapter.getUrl());
+        String url = chapter.getUrl();
+        String path = url.substring(url.indexOf("/")+1);
+        String group = url.replace("/"+path, "");
+        byte[] bytes = fastFileStorageClient.downloadFile(group, path, new DownloadByteArray());
 
-        String canonicalPath = file.getCanonicalPath();
 
 
-        if (!file.exists()) {
-            return "-1";
-        }
         response.reset();
+
         String encode = URLEncoder.encode(chapter.getTitle() + ".mp3", "UTF-8");
         response.setHeader("Content-Disposition", "attachment;fileName=" + encode);
         try {
-            InputStream inStream = new FileInputStream(canonicalPath);
+            ByteArrayInputStream inStream = new ByteArrayInputStream(bytes);
+
             OutputStream os = response.getOutputStream();
+
 
             byte[] buff = new byte[1024];
             int len = -1;

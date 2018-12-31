@@ -41,19 +41,8 @@ public class Album implements Serializable {
     @JSONField(format = "yyyy-MM-dd HH:mm")
     @Excel(name = "创建时间",format = "yyyy-MM-dd",width=20,needMerge = true)
     private Date pubDate;
-
-
-
     @Excel(name="背景图片",type=2,width=30,height = 30,needMerge = true)
-
     private String coverImg;
-
-
-
-
-
-
-
 
     @ExcelCollection(name="音频",orderNum="4")
     private List<Chapter> children;

@@ -1,14 +1,27 @@
 package com.baizhi.conf;
 
+import com.github.tobato.fastdfs.domain.fdfs.StorePath;
 import org.jaudiotagger.audio.AudioFileIO;
 import org.jaudiotagger.audio.mp3.MP3AudioHeader;
 import org.jaudiotagger.audio.mp3.MP3File;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.text.DecimalFormat;
 
 public class VideoUtil {
+    public static String getTail(MultipartFile file){
+        String originalFilename = file.getOriginalFilename();
+
+        String substring = originalFilename.substring(originalFilename.lastIndexOf(".") + 1);
+    return substring;
+    }
+    public static String getPath(StorePath path){
+        String group = path.getGroup();
+        String path2 = path.getPath();
+        return group+"/"+path2;
+    }
     public static String  getDuration(String filePath) {
         File file = new File(filePath);
         MP3AudioHeader audioHeader = null;

@@ -23,7 +23,26 @@
         </collection>
     </resultMap>
 
-
+<select id="selectAppAlbum" resultType="albumMap1">
+    select a.id          aid,
+           a.title       atitle,
+           a.author      aauthor,
+           a.broadcast   abroadcast,
+           a.score       ascore,
+           a.count       acount,
+           a.brief       abrief,
+           a.pub_date    apub_date,
+           a.cover_img   acover_img,
+           c.id          cid,
+           c.url         curl,
+           c.title       ctitle,
+           c.size        csize,
+           c.album_id    calbum_id,
+           c.duration    cduration,
+           c.upload_date cupload_date
+    from (select * from album limit 0,#{count}) a
+             left join chapter c   on a.id = c.album_id
+</select>
     <select id="selectAllAlbum" resultMap="albumMap1">
     select a.id          aid,
            a.title       atitle,

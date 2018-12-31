@@ -1,6 +1,7 @@
 package com.baizhi.service;
 
 import com.baizhi.entity.ProvinceJson;
+import com.baizhi.entity.User;
 import com.baizhi.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -56,5 +57,13 @@ public class UserServiceImpl implements UserService {
         map.put("woman",woManProvince);
         map.put("man",manProvince);
         return map;
+    }
+
+    @Override
+    public User getAppLogin(String phone) {
+        User user = new User();
+        user.setPhone(phone);
+        User user1 = userMapper.selectOne(user);
+        return user1;
     }
 }
