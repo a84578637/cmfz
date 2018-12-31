@@ -18,6 +18,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.ListOperations;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.test.context.junit4.SpringRunner;
 import tk.mybatis.spring.annotation.MapperScan;
 
@@ -26,6 +29,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 @RunWith(SpringRunner.class)
@@ -38,6 +42,9 @@ public class CmfzApplicationTests {
     BannerMapper bannerMapper;
     @Autowired
     UserMapper userMapper;
+    @Autowired
+
+    private RedisTemplate<String, Object> redisTemplate;
 
     Logger logger = Logger.getLogger("a");
 
@@ -207,6 +214,29 @@ public class CmfzApplicationTests {
         String s = JSON.toJSONString(userProvince);
         GoEasy goEasy = new GoEasy( "http://rest-hangzhou.goeasy.io", "BC-5d656a5ce51b45779a80fbe8903f8c4c");
         goEasy.publish("userProvince",s);
+
+    }
+
+    @Test
+    public void TestRedis(){
+        ListOperations<String, Object> opsForList = redisTemplate.opsForList();
+        opsForList.leftPush("a","小明");
+        Object a = opsForList.leftPop("a");
+        logger.info("REDIS："+a.toString());
+    }
+
+    @Test
+    public void TestRedis2() throws InterruptedException {
+        ValueOperations<String, Object> forValue = redisTemplate.opsForValue();
+
+       // forValue.set("c","abccccc",1,TimeUnit.SECONDS);
+        Object b = forValue.get("c");
+        if(b!=null){
+            logger.info("--------------------"+b.toString());
+        }else{
+            logger.info("空空空");
+        }
+
 
     }
 

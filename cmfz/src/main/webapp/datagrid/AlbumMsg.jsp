@@ -32,7 +32,7 @@ $(function () {
     $('#albumForm').form("load","${pageContext.request.contextPath}/album/OneAlbum?id="+paramid);
 
     setTimeout(function () {
-        var coverimgsrc = "${pageContext.request.contextPath}/img/"+$("#album8").val();
+        var coverimgsrc = "http://192.168.194.134/"+$("#album8").val();
         $("#albumPic").attr("src",coverimgsrc);
     },100);
 

@@ -1,8 +1,10 @@
 package com.baizhi.controller;
 
+import com.baizhi.conf.VideoUtil;
 import com.baizhi.entity.Banner;
 import com.baizhi.entity.BannerPageDto;
 import com.baizhi.service.BannerService;
+import com.github.tobato.fastdfs.domain.fdfs.StorePath;
 import com.github.tobato.fastdfs.service.FastFileStorageClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,17 +12,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpSession;
-import java.io.File;
 import java.io.IOException;
 import java.util.Date;
-import java.util.UUID;
 import java.util.logging.Logger;
 
 @RestController
 @RequestMapping("/banner")
 public class BannerController {
+
     @Autowired
     BannerService bannerService;
     @Autowired
@@ -46,22 +45,14 @@ public class BannerController {
 
     }
     @RequestMapping("/regist")
-    public void regist(HttpSession session, @RequestParam("uploadFile") MultipartFile file, Banner banner) throws IOException {
-        log.info("进入添加"+file);
-        ServletContext ctx = session.getServletContext();
-        String realPath = ctx.getRealPath("/img");
-        String uuidName = UUID.randomUUID().toString().replace("-","")+"JPG";
+    public void regist( @RequestParam("uploadFile") MultipartFile file, Banner banner) throws IOException {
 
-        String path=realPath + "/" +uuidName;
-        log.info("地址："+path);
-        //将内存中的图片输出到相应位置
-        File file1 = new File(path);
+        String tail = VideoUtil.getTail(file);
 
-        file.transferTo(file1);
-
-
+        StorePath path1 = fastFileStorageClient.uploadFile(file.getInputStream(), file.getSize(), tail, null);
+        String path = VideoUtil.getPath(path1);
         //初始化BANNER属性
-        banner.setImgPath("/img/"+uuidName);
+        banner.setImgPath(path);
         banner.setPubDate(new Date());
         banner.setStatus("N");
         bannerService.registBanner(banner);

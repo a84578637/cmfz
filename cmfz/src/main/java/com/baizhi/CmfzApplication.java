@@ -10,7 +10,6 @@ import tk.mybatis.spring.annotation.MapperScan;
 
 @SpringBootApplication
 @Import(FdfsClientConfig.class)
-// 解决jmx重复注册b ean的问题
 @EnableMBeanExport(registration = RegistrationPolicy.IGNORE_EXISTING)
 @MapperScan("com.baizhi.mapper")
 public class CmfzApplication {

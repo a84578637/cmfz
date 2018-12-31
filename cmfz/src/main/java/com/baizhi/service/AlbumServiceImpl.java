@@ -30,9 +30,6 @@ public class AlbumServiceImpl implements AlbumService{
 
     @Override
     public void regist(Album album ) {
-
-
-
         albumMapper.insert(album);
         logger.info("Service添加成功");
     }
@@ -56,11 +53,24 @@ public class AlbumServiceImpl implements AlbumService{
         }*/
         for (Album album : albums) {
            // album.setCoverImg("img/"+album.getCoverImg());
-            album.setCoverImg("F:/testImg/"+album.getCoverImg());
+        //    album.setCoverImg("http://192.168.194.134/"+album.getCoverImg());
+            album.setCoverImg("F:/1.jpg");
 
            // logger.info("路径为："+album.getCoverImg());
         }
 
+        return albums;
+    }
+
+    @Override
+    public List<Album> getAppAlbum(Integer count) {
+        List<Album> albums = albumMapper.selectAppAlbum(count);
+        return albums;
+    }
+
+    @Override
+    public List<Album> getAllAppAlbum() {
+        List<Album> albums = albumMapper.selectAll();
         return albums;
     }
 }

@@ -10,5 +10,7 @@ public interface AlbumService {
     public void regist(Album album);
     public Album getOne(Integer id);
     public List<Album> getPOI();
+    public List<Album> getAppAlbum(Integer count);
+    public List<Album> getAllAppAlbum();
 
 }

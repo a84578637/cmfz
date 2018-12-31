@@ -52,7 +52,7 @@ $(function () {
 <form id="addChapterForm" method="POST"  enctype="multipart/form-data">
     <input type="file" name="uploadFile" id="uploadFile3"/><br />
     章节名：<input style="width:200px" name="title" id="addChapterTitle" />
-    <input name="albumId" id="addChapterAlbumId" readonly="true" hidden="hidden">
+    <input name="albumId" id="addChapterAlbumId" readonly="true" hidden="hidden"><br/>
     <input id="addChapterSubmit" value="添加" >
 </form>
 </div>

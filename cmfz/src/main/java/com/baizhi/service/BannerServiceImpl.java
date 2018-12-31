@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.logging.Logger;
 
 @Service
@@ -58,6 +59,12 @@ public class BannerServiceImpl implements BannerService {
         log.info("BannerServiceImpl中，修改Banner为：" + b);
         bannerMapper.updateByPrimaryKey(b);
         log.info("BannerServiceImpl中，修改完成");
+    }
+
+    @Override
+    public List<Banner> getAppBanner(Integer count) {
+        List<Banner> appBanner = bannerMapper.getAppBanner(count);
+        return appBanner;
     }
 
 }

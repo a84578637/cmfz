@@ -112,7 +112,7 @@
             view:detailview,
             detailFormatter:function (rowIndex, rowData) {
                 return '<table><tr>' +
-                    '<td rowspan=2 style="border:0"><img src="${pageContext.request.contextPath}' + rowData.imgPath + '" style="height:50px;"></td>' +
+                    '<td rowspan=2 style="border:0"><img src="http://192.168.194.134/' + rowData.imgPath + '" style="height:50px;"></td>' +
                     '<td style="border:0">' +
                     '<p>描述: ' + rowData.description + '</p>' +
                     '<p>日期: ' + rowData.pubDate + '</p>' +

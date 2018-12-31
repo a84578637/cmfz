@@ -2,9 +2,12 @@ package com.baizhi.controller;
 
 import cn.afterturn.easypoi.excel.ExcelExportUtil;
 import cn.afterturn.easypoi.excel.entity.ExportParams;
+import com.baizhi.conf.VideoUtil;
 import com.baizhi.entity.Album;
 import com.baizhi.entity.AlbumPageDto;
 import com.baizhi.service.AlbumService;
+import com.github.tobato.fastdfs.domain.fdfs.StorePath;
+import com.github.tobato.fastdfs.service.FastFileStorageClient;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,15 +15,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.io.File;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 import java.util.logging.Logger;
 
 @RestController
@@ -29,14 +28,14 @@ public class AlbumController {
     @Autowired
     AlbumService albumService;
     @Autowired
+    FastFileStorageClient fastFileStorageClient;
+    @Autowired
     Logger logger;
 
     @RequestMapping("/poi")
     public void poi(HttpServletResponse response) {
         List<Album> poi = albumService.getPOI();
-        for (Album album : poi) {
-            logger.info("-------------"+album.getCoverImg());
-        }
+
         Workbook workbook = ExcelExportUtil.exportExcel(new ExportParams("专辑列表", "专辑"), Album.class, poi);
 
         try {
@@ -116,27 +115,19 @@ public class AlbumController {
     }
 
     @RequestMapping("/regist")
-    public void regist(HttpSession session, @RequestParam("uploadFile") MultipartFile file, Album album) throws IOException {
+    public void regist(@RequestParam("uploadFile") MultipartFile file, Album album) throws IOException {
+
+
+        String tail = VideoUtil.getTail(file);
+
 
         //文件操作
-        logger.info("进入添加" + file);
-        System.out.println("1");
-        ServletContext ctx = session.getServletContext();
-        String realPath = ctx.getRealPath("/img");
-
-        String uuidName = UUID.randomUUID().toString().replace("-", "") + ".jpg";
-        String path = realPath + "/" + uuidName;
-
-        logger.info("地址：" + path);
-
-        File file1 = new File(path);
-
-        file.transferTo(file1);
+        StorePath path1 = fastFileStorageClient.uploadFile(file.getInputStream(), file.getSize(), tail, null);
+        String path = VideoUtil.getPath(path1);
         //文件操作结束
 
-        album.setCoverImg(uuidName);
+        album.setCoverImg(path);
         album.setPubDate(new Date());
-
         albumService.regist(album);
     }
 
