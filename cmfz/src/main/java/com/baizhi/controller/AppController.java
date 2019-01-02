@@ -182,16 +182,17 @@ FastFileStorageClient fastFileStorageClient;
 
 
     @RequestMapping("/obtain")
-    public void obtain(String phone){
+    public Object obtain(String phone){
     //根据手机号发送短信
-
-
+        Object obtain = appService.obtain(phone);
+        return  obtain;
     }
 
     @RequestMapping("/check")
-    public void check(String phone,String code){
+    public Object check(String phone,String code){
         //根据手机号和验证码验证
-
+        Object check = appService.check(phone, code);
+        return check;
 
     }
 

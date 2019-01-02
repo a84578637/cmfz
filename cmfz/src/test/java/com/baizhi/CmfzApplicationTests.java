@@ -43,7 +43,6 @@ public class CmfzApplicationTests {
     @Autowired
     UserMapper userMapper;
     @Autowired
-
     private RedisTemplate<String, Object> redisTemplate;
 
     Logger logger = Logger.getLogger("a");
@@ -236,8 +235,6 @@ public class CmfzApplicationTests {
         }else{
             logger.info("空空空");
         }
-
-
     }
 
 }

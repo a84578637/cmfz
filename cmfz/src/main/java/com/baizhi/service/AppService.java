@@ -11,4 +11,6 @@ public interface AppService {
     public Object regist(String phone,String password);
     public Object account(Integer uid,String gender,String photo,String location,String description,String nickname,String province,String city,String password);
     public List<User> member(Integer uid);
+    public Object obtain(String phone);
+    public Object check(String phone,String code);
 }
