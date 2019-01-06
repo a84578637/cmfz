@@ -29,6 +29,7 @@ public class AdminController {
         return regist;
     }
 
+
     @RequestMapping("/Login")
     public Msg login(String username ,String password ,String encode,HttpSession session){
         Object code = session.getAttribute("Code");
