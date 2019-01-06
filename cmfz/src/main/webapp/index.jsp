@@ -1,4 +1,5 @@
 <%@page pageEncoding="UTF-8" %>
+<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <html>
 <head>
     <script type="text/javascript" src="js/jquery.min.js"></script>

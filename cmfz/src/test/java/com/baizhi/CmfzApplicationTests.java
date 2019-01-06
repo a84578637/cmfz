@@ -6,9 +6,7 @@ import com.baizhi.conf.SnowflakeIdWorker;
 import com.baizhi.conf.TestUtil;
 import com.baizhi.conf.VideoUtil;
 import com.baizhi.entity.*;
-import com.baizhi.mapper.AlbumMapper;
-import com.baizhi.mapper.BannerMapper;
-import com.baizhi.mapper.UserMapper;
+import com.baizhi.mapper.*;
 import com.baizhi.service.UserService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -29,7 +27,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
+
 import java.util.logging.Logger;
 
 @RunWith(SpringRunner.class)
@@ -44,6 +42,8 @@ public class CmfzApplicationTests {
     UserMapper userMapper;
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
+    @Autowired
+    LuceneArticleDao luceneArticleDao;
 
     Logger logger = Logger.getLogger("a");
 
@@ -236,6 +236,26 @@ public class CmfzApplicationTests {
             logger.info("空空空");
         }
     }
+
+    @Test
+    public void TestLucene(){
+
+
+        Article article = new Article(10,"西游记之大闹天空",new Date(),"asidhgas天空","那一天，天空暗无天日",1,new Guru());
+        //luceneArticleDao.createIndex(article);
+        List<Article> list = luceneArticleDao.SearcherIndex("大闹天", 10, 1);
+        for (Article article1 : list) {
+            System.out.println(article1.getId());
+            System.out.println(article1.getContent());
+            System.out.println(article1.getTitle());
+            System.out.println("----------------------------------");
+
+
+        }
+        System.out.println("插入成功");
+    }
+
+
 
 }
 
