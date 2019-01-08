@@ -27,14 +27,9 @@ public class UserServiceImpl implements UserService {
     public Map<String, List<Integer>> getUserRegist() {
         Integer date = 7;
         ArrayList<Integer> integers = new ArrayList<>();
-
-
-
         for(int i=0;i<10;i++){
             Integer userRegist = userMapper.getUserRegist(i * date, i * date + date);
-
             integers.add(userRegist);
-
         }
 
         Map<String, List<Integer>> map = new HashMap<>();
@@ -52,7 +47,6 @@ public class UserServiceImpl implements UserService {
         List<ProvinceJson> userProvince = userMapper.getUserProvince();
         List<ProvinceJson> manProvince = userMapper.getUserProvinceMan();
         List<ProvinceJson> woManProvince = userMapper.getUserProvinceWoMan();
-
         HashMap<String, List<ProvinceJson>> map = new HashMap<>();
         map.put("data",userProvince);
         map.put("woman",woManProvince);

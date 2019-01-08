@@ -1,9 +1,17 @@
 package com.baizhi.conf;
 
+import com.baizhi.realm.MyRealm;
+import org.apache.shiro.authc.credential.CredentialsMatcher;
+import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
+
+import org.apache.shiro.cache.CacheManager;
+import org.apache.shiro.cache.ehcache.EhCacheManager;
+import org.apache.shiro.realm.Realm;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.mgt.SecurityManager;
-import org.springframework.beans.factory.annotation.Autowired;
+
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -20,14 +28,6 @@ public class ShiroFilterConf {
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         HashMap<String, String> map = new HashMap<>();
         map.put("/**","anon");
- /*       map.put("/css/**","anon");
-        map.put("/js/**","anon");
-        map.put("/img/**","anon");
-        map.put("/main/**","anon");
-        map.put("/script/**","anon");
-        map.put("/themes/**","anon");
-        map.put("/admin/**","anon");
-       */
 
         shiroFilterFactoryBean.setFilterChainDefinitionMap(map);
 
@@ -36,12 +36,33 @@ public class ShiroFilterConf {
     }
 
     @Bean
-    public SecurityManager getSecurityManager(){
+    public SecurityManager getSecurityManager(Realm realm,CacheManager cacheManager){
         DefaultWebSecurityManager defaultWebSecurityManager = new DefaultWebSecurityManager();
+        defaultWebSecurityManager.setRealm(realm);
+        defaultWebSecurityManager.setCacheManager(cacheManager);
         return  defaultWebSecurityManager ;
     }
 
+    @Bean
+    public Realm getRealm(CredentialsMatcher credentialsMatcher){
+        MyRealm myRealm = new MyRealm();
+        myRealm.setCredentialsMatcher(credentialsMatcher);
+        return myRealm;
+    }
 
+    @Bean
+    public CredentialsMatcher getCredentialsMatcher(){
+        HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
+        hashedCredentialsMatcher.setHashAlgorithmName("md5");
+        hashedCredentialsMatcher.setHashIterations(1024);
+        return hashedCredentialsMatcher;
+    }
+
+    @Bean
+    public CacheManager getCacheManager(){
+        EhCacheManager ehCacheManager = new EhCacheManager();
+        return ehCacheManager;
+    }
 
 
 }

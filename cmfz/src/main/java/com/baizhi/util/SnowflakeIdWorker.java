@@ -1,4 +1,4 @@
-package com.baizhi.conf;
+package com.baizhi.util;
 
 public class SnowflakeIdWorker {
     /**  开始时间戳 (2015-01-01) */

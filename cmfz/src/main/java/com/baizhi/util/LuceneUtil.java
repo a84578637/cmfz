@@ -1,4 +1,4 @@
-package com.baizhi.conf;
+package com.baizhi.util;
 
 
 import org.apache.lucene.analysis.Analyzer;

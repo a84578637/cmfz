@@ -1,5 +1,7 @@
 ﻿<%@ page isELIgnored="false" language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -39,6 +41,8 @@
                                         console.log(second.title);
                                         a += "<p style='text-align: center'><a id=\"btn\" href=\"#\" class=\"easyui-linkbutton\" onclick=\"addTabs('" + second.title + "','" + second.iconcls + "','" + second.url + "')\" data-options=\"iconCls:'" + second.iconcls + "'\">" + second.title + "</a></p>";
                                     })
+
+
 
                                 }
                             )
@@ -86,10 +90,21 @@
         持名法州后台管理系统
     </div>
     <div style="font-size: 16px;color: #FAF7F7;font-family: 楷体;width: 300px;float:right;padding-top:15px">
-        欢迎您:${sessionScope.Admin.username} &nbsp;<a href="#" class="easyui-linkbutton"
-                                                    data-options="iconCls:'icon-edit'">修改密码</a>&nbsp;&nbsp;<a href="#"
-                                                                                                              class="easyui-linkbutton"
-                                                                                                              data-options="iconCls:'icon-01'">退出系统</a>
+        <shiro:hasPermission name="super:add">拥有删除uquanxina</shiro:hasPermission>
+        <shiro:hasRole name="admin">拥有admin角色</shiro:hasRole>
+
+        <shiro:authenticated>
+            您好：<shiro:principal></shiro:principal>
+            <a href="#" class="easyui-linkbutton"
+               data-options="iconCls:'icon-edit'">修改密码</a>
+            &nbsp;<a href="${pageContext.request.contextPath}/admin/logout" class="easyui-linkbutton"
+            >注销</a>
+        </shiro:authenticated>
+
+        <shiro:notAuthenticated>
+            <a class="easyui-linkbutton" href="${pageContext.request.contextPath}/login.jsp">登录</a>
+        </shiro:notAuthenticated>
+
     </div>
 </div>
 <div data-options="region:'south',split:true" style="height: 40px;background: #5C160C">

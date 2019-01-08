@@ -1,4 +1,4 @@
-package com.baizhi.conf;
+package com.baizhi.util;
 
 import java.io.UnsupportedEncodingException;
 import java.text.ParseException;

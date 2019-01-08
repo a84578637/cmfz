@@ -2,7 +2,7 @@ package com.baizhi.controller;
 
 import cn.afterturn.easypoi.excel.ExcelExportUtil;
 import cn.afterturn.easypoi.excel.entity.ExportParams;
-import com.baizhi.conf.VideoUtil;
+import com.baizhi.util.VideoUtil;
 import com.baizhi.entity.Album;
 import com.baizhi.entity.AlbumPageDto;
 import com.baizhi.service.AlbumService;

@@ -1,6 +1,6 @@
 package com.baizhi.service;
 
-import com.baizhi.conf.VideoUtil;
+import com.baizhi.util.VideoUtil;
 import com.baizhi.entity.Chapter;
 import com.baizhi.mapper.ChapterMapper;
 import com.github.tobato.fastdfs.domain.fdfs.StorePath;

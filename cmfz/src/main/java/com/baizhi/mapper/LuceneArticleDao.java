@@ -1,7 +1,7 @@
 package com.baizhi.mapper;
 
 
-import com.baizhi.conf.LuceneUtil;
+import com.baizhi.util.LuceneUtil;
 import com.baizhi.entity.Article;
 import org.apache.lucene.document.*;
 import org.apache.lucene.index.IndexWriter;
@@ -107,14 +107,11 @@ public class LuceneArticleDao {
         return list;
     }
 
-
     public Document getDocFromPro(Article product) {
         Document document = new Document();
         document.add(new StringField("id", product.getId().toString(), Field.Store.YES));
         document.add(new TextField("title", product.getTitle(), Field.Store.YES));
         document.add(new StringField("insert_img", product.getInsertImg(), Field.Store.YES));
-        document.add(new StringField("content", product.getContent(), Field.Store.YES));
-
         return document;
     }
 

@@ -2,9 +2,9 @@ package com.baizhi;
 
 
 import com.alibaba.fastjson.JSON;
-import com.baizhi.conf.SnowflakeIdWorker;
-import com.baizhi.conf.TestUtil;
-import com.baizhi.conf.VideoUtil;
+import com.baizhi.util.SnowflakeIdWorker;
+import com.baizhi.util.TestUtil;
+import com.baizhi.util.VideoUtil;
 import com.baizhi.entity.*;
 import com.baizhi.mapper.*;
 import com.baizhi.service.UserService;

@@ -1,6 +1,6 @@
 package com.baizhi.controller;
 
-import com.baizhi.conf.VideoUtil;
+import com.baizhi.util.VideoUtil;
 import com.baizhi.entity.Banner;
 import com.baizhi.entity.BannerPageDto;
 import com.baizhi.service.BannerService;

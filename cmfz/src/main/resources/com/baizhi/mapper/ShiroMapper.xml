@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.shiro.mapper.shiroMapper">
+        <select id="selectPermission" resultType="String">
+                select permission_name from sec_permission
+                where permission_id in
+                      (select permission_id from sec_role_permission
+                      where role_id in (select role_id from sec_role where role_id in (
+                        select role_id from sec_user_role
+                        where user_id=(select user_id from sec_user where user_name=#{username}))
+                ))
+        </select>
+        <select id="selectRole" resultType="String" >
+                select role_name from sec_role where role_id in (
+                        select role_id from sec_user_role
+                        where user_id=(select user_id from sec_user where user_name=#{username}))
+
+        </select>
+</mapper>

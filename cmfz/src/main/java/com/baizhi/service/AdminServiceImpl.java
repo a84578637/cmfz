@@ -41,9 +41,6 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public Msg CheckLogin(Admin admin) {
 
-
-
-
         Example example = new Example(Admin.class,true,true);
         Example.Criteria criteria = example.createCriteria();
         logger.info("AdminServiceImpl中 CheckLogin方法准备查询用户");

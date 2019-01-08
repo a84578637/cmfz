@@ -11,7 +11,9 @@ import tk.mybatis.spring.annotation.MapperScan;
 @SpringBootApplication
 @Import(FdfsClientConfig.class)
 @EnableMBeanExport(registration = RegistrationPolicy.IGNORE_EXISTING)
-@MapperScan("com.baizhi.mapper")
+@MapperScan({"com.baizhi.mapper","com.baizhi.shiro.mapper"})
+
+
 public class CmfzApplication {
 
     public static void main(String[] args) {

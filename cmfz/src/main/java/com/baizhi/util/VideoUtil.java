@@ -1,4 +1,4 @@
-package com.baizhi.conf;
+package com.baizhi.util;
 
 import com.github.tobato.fastdfs.domain.fdfs.StorePath;
 import org.jaudiotagger.audio.AudioFileIO;

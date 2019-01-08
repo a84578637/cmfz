@@ -27,7 +27,7 @@ public class MenuServiceImpl implements MenuService {
         criteria.andEqualTo("parentId", "-1");
         List<Menu> menus = menuMapper.selectByExample(example);
 
-            a.info("MenuServiceImpl中查询到的父类Menu:"+menus);
+           // a.info("MenuServiceImpl中查询到的父类Menu:"+menus);
         return menus;
     }
 
