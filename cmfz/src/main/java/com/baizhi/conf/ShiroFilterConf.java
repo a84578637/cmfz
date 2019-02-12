@@ -28,6 +28,11 @@ public class ShiroFilterConf {
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         HashMap<String, String> map = new HashMap<>();
         map.put("/**","anon");
+        /*
+
+
+         */
+
 
         shiroFilterFactoryBean.setFilterChainDefinitionMap(map);
 

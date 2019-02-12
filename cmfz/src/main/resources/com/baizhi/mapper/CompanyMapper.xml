@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.mapper.CompanyMapper">
+        <select id="selectCompany" resultType="fCompany">
+            <![CDATA[
+            select * from f_company where person<nperson limit ${(page-1)*rows},#{rows}
+                ]]>
+        </select>
+    <select id="selectCompanyCount" resultType="Integer">
+        <![CDATA[
+        select count(*) from f_company where person<nperson
+               ]]>
+    </select>
+</mapper>

@@ -73,7 +73,7 @@ public class MyRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         String principal = (String)authenticationToken.getPrincipal();
         secUser secUser = new secUser();
-        secUser.setUserName(principal);
+        secUser.setUserPhone(principal);
 
         /**
          *   根据身份信息查询数据库：
