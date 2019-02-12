@@ -333,7 +333,6 @@ public class SecUserServiceImpl implements SecUserService {
 
             public void cancelled() {
 
-
             }
         }).get();
 
