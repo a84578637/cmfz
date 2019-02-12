@@ -1,10 +1,15 @@
 package com.baizhi.util;
 
+import org.apache.commons.lang3.concurrent.BasicThreadFactory;
+
 import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 public class TestUtil {
     public String getChineseName(){
@@ -149,5 +154,32 @@ public class TestUtil {
         return null;
     }
 
+    public  void timer(){
 
+        //延时多少开始
+        long initialDelay=1000;
+        //循环周期
+        long period=1000;
+        Integer corePoolSize=1;
+        /**最大并发数 （线程池会创建最大并发数 corePoolSize的Worker对象
+        Worker对象内部包含了Thread和Runnable信息
+        添加任务时：
+         如果Worker没有最大值、就创建Worker（通过ThreadFactory的newThread新建了Thread，所以Thread的数量等于Worker数量）
+         如果已经是最大、就把任务放到队列(Quene)中。
+         任务执行中：
+         如果Worker的Runnable不为空，指定Runnable,执行结束，Runnabale设置为空
+         如果Worker的Runnable为空，从队列中取出任务执行。
+         Runnable运行结束，线程池内部直接退出了线程。
+        */
+        ScheduledExecutorService executorService =
+                new ScheduledThreadPoolExecutor(corePoolSize,
+                        new BasicThreadFactory.Builder().namingPattern("example-schedule-pool-%d").daemon(true).build());
+        executorService.scheduleAtFixedRate(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("aaa");
+            }
+        },initialDelay,period, TimeUnit.MILLISECONDS);
+
+    }
 }
